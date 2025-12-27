@@ -1,0 +1,86 @@
+/* RESET BASIC ISSUES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* TOP BAR */
+.top-bar {
+  background-color: #0b3c5d;
+  padding: 10px 20px;
+}
+
+.college-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.college-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.college-name {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: #1d2731;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+/* NOTIFICATION BAR */
+.notification-bar {
+  background-color: #f4d03f;
+  color: #000;
+  text-align: center;
+  padding: 8px;
+  font-weight: bold;
+}
+
+/* PAGE CONTENT SPACING */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.page-container {
+  padding: 20px;
+}
