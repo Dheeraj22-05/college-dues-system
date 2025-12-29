@@ -16,7 +16,7 @@ db.serialize(() => {
     semester INTEGER,
     email TEXT UNIQUE,
     password TEXT,
-    status TEXT
+    status TEXT DEFAULT 'active'
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS admins (
@@ -28,14 +28,14 @@ db.serialize(() => {
     role TEXT,
     department TEXT
   )`);
-  
-db.run(`CREATE TABLE IF NOT EXISTS notifications (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  message TEXT,
-  created_by TEXT,
-  created_at TEXT,
-  active INTEGER
-)`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    message TEXT,
+    created_by TEXT,
+    created_at TEXT,
+    active INTEGER
+  )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS password_reset_tokens (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,16 +45,17 @@ db.run(`CREATE TABLE IF NOT EXISTS notifications (
     expires_at TEXT,
     used INTEGER
   )`);
-  db.run(`CREATE TABLE IF NOT EXISTS dues (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  student_id INTEGER,
-  department TEXT,
-  semester INTEGER,
-  status TEXT,
-  updated_by TEXT,
-  updated_at TEXT
-)`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS dues (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER,
+    department TEXT,
+    semester INTEGER,
+    status TEXT,
+    updated_by TEXT,
+    updated_at TEXT
+  )`);
 });
+
 
 module.exports = db;

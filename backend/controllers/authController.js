@@ -41,40 +41,44 @@ exports.adminLogin = (req, res) => {
   const { faculty_id, password } = req.body;
 
   if (!faculty_id || !password) {
-    return res.status(400).json({ message: "All fields required" });
+    return res.status(400).json({ message: "Missing credentials" });
   }
 
   db.get(
     "SELECT * FROM admins WHERE faculty_id = ?",
     [faculty_id],
     async (err, admin) => {
-      if (!admin) {
-        return res.status(401).json({ message: "Invalid Faculty ID" });
+      if (err || !admin) {
+        return res.status(400).json({
+          message: "Invalid Faculty ID or Password",
+        });
       }
 
-      const match = await bcrypt.compare(password, admin.password);
-      if (!match) {
-        return res.status(401).json({ message: "Incorrect password" });
+      const isMatch = await bcrypt.compare(password, admin.password);
+      if (!isMatch) {
+        return res.status(400).json({
+          message: "Invalid Faculty ID or Password",
+        });
       }
 
       const token = jwt.sign(
         {
           id: admin.id,
           role: admin.role,
-          department: admin.department,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "1h" }
+        { expiresIn: "1d" }
       );
 
       res.json({
         token,
         role: admin.role,
-        department: admin.department,
+        name: admin.name,
       });
     }
   );
 };
+
 
 // FORGOT PASSWORD
 exports.forgotPassword = (req, res) => {
@@ -84,6 +88,9 @@ exports.forgotPassword = (req, res) => {
     return res.status(400).json({ message: "All fields required" });
   }
 
+  // 👉 Treat principal as admin
+  const effectiveUserType = user_type === "principal" ? "admin" : user_type;
+
   const token = uuidv4();
   const expires = new Date(Date.now() + 15 * 60 * 1000).toISOString();
 
@@ -91,19 +98,29 @@ exports.forgotPassword = (req, res) => {
     `INSERT INTO password_reset_tokens
      (user_type, user_id, token, expires_at, used)
      VALUES (?, ?, ?, ?, 0)`,
-    [user_type, user_id, token, expires]
+    [effectiveUserType, user_id, token, expires]
   );
 
-  const resetLink = `http://localhost:5173/reset-password/${token}`;
+ const resetLink = `http://localhost:5173/#/reset-password/${token}`;
 
+
+  // ✅ VERY IMPORTANT FOR YOU
+  console.log("===== PASSWORD RESET REQUEST =====");
+  console.log("User Type:", effectiveUserType);
+  console.log("User ID:", user_id);
+  console.log("Email:", email);
+  console.log("RESET LINK:", resetLink);
+  console.log("=================================");
+
+  // Email sending (optional for demo)
   mailer.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Password Reset - College Dues System",
-    text: `Click this link to reset your password:\n${resetLink}\n\nLink valid for 15 minutes.`
+    text: `Click this link to reset your password:\n${resetLink}`
   });
 
-  res.json({ message: "Password reset link sent to email" });
+  res.json({ message: "Password reset link generated (check backend console)" });
 };
 
 //RESET PASSWORD

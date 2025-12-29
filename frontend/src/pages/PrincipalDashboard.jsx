@@ -12,7 +12,6 @@ function PrincipalDashboard() {
           Manage Notifications
         </button>
       </div>
-
       <div style={{ marginTop: "20px" }}>
         <button disabled>View All Students (Coming Soon)</button>
       </div>

@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrincipalDashboard from "./pages/PrincipalDashboard";
 import ManageNotifications from "./pages/ManageNotifications";
-
+import ChangePassword from "./pages/ChangePassword";
 function App() {
   return (
     <>
@@ -28,6 +28,7 @@ function App() {
         <Route path="/admin-dashboard" element={<ProtectedRoute role="admin"> <AdminDashboard /> </ProtectedRoute>}/>
         <Route path="/principal-dashboard" element={<ProtectedRoute role="principal"> <PrincipalDashboard /> </ProtectedRoute> }/>
         <Route path="/manage-notifications" element={<ProtectedRoute role="principal"> <ManageNotifications /> </ProtectedRoute> } />
+        <Route path="/change-password" element={<ChangePassword />} />
       </Routes>
     </>
   );

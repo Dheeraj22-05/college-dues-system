@@ -1,6 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function AdminLogin() {
   const [facultyId, setFacultyId] = useState("");
@@ -49,7 +49,8 @@ function AdminLogin() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <br />
-      <a href="/forgot-password">Forgot Password?</a>
+      <Link to="/forgot-password">Forgot Password?</Link>
+
     </div>
   );
 }

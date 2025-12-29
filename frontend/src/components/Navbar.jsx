@@ -72,11 +72,21 @@ function Navbar() {
 </div>
 
 
-        {role && (
-          <button className="logout-btn" onClick={logout}>
-            Logout
-          </button>
-        )}
+       {role && (
+  <div className="nav-actions">
+    <button
+      className="change-password-btn"
+      onClick={() => navigate("/change-password")}
+    >
+      Change Password
+    </button>
+
+    <button className="logout-btn" onClick={logout}>
+      Logout
+    </button>
+  </div>
+)}
+
       </nav>
 
       {/* 🟡 Notification Bar (DYNAMIC) */}

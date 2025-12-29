@@ -56,14 +56,17 @@ function AdminDashboard() {
                     <button onClick={() => clearDue(d.id)}>
                       Clear
                     </button>
+                    
                   )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        
       )}
     </div>
+    
   );
 }
 

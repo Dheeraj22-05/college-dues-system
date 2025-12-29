@@ -58,6 +58,7 @@ const registerSemester = async () => {
   Register for Next Semester
 </button>
 
+
 {regStatus && <p style={{ fontWeight: "bold" }}>{regStatus}</p>}
 
     </div>
